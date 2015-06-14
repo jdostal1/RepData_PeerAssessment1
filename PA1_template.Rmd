@@ -43,10 +43,13 @@ activity_data$interval[which.max(average_steps_per_interval)]
 ```
 
 ## Inputing missing values
+
 ```{r}
 # Calculate and report the total number of rows with NAs (i.e. count of which rows are not complete cases)
 length(which(!complete.cases(activity_data)))
 ```
+
+#### The strategy for inputting missing data will be to replace NAs with the corresponding interval averages
 
 ```{r}
 # Create a new data set equal to the original data set with missing data filled in (use interval averages to replace nas)

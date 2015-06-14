@@ -89,6 +89,7 @@ activity_data$interval[which.max(average_steps_per_interval)]
 
 ## Inputing missing values
 
+
 ```r
 # Calculate and report the total number of rows with NAs (i.e. count of which rows are not complete cases)
 length(which(!complete.cases(activity_data)))
@@ -97,6 +98,8 @@ length(which(!complete.cases(activity_data)))
 ```
 ## [1] 2304
 ```
+
+#### The strategy for inputting missing data will be to replace NAs with the corresponding interval averages
 
 
 ```r
@@ -150,20 +153,7 @@ new_activity_data = cbind(new_activity_data, new_factor)
 # Make a panel plot for average steps taken for weekdays or weekends
 weekdays_data = new_activity_data[which(new_activity_data$new_factor == "weekday"),]
 average_steps_per_weekday = tapply(weekdays_data$steps, list(weekdays_data$interval), mean, na.rm = "TRUE")
-head(weekdays_data)
-```
 
-```
-##       steps       date interval new_factor
-## 1 1.7169811 2012-10-01        0    weekday
-## 2 0.3396226 2012-10-01        5    weekday
-## 3 0.1320755 2012-10-01       10    weekday
-## 4 0.1509434 2012-10-01       15    weekday
-## 5 0.0754717 2012-10-01       20    weekday
-## 6 2.0943396 2012-10-01       25    weekday
-```
-
-```r
 weekends_data = new_activity_data[which(new_activity_data$new_factor == "weekend"),]
 average_steps_per_weekend = tapply(weekends_data$steps, list(weekends_data$interval), mean, na.rm = "TRUE")
 

@@ -110,6 +110,8 @@ plot(activity_data$interval[0:length(average_steps_per_interval)], average_steps
 <pre class="r"><code># Calculate and report the total number of rows with NAs (i.e. count of which rows are not complete cases)
 length(which(!complete.cases(activity_data)))</code></pre>
 <pre><code>## [1] 2304</code></pre>
+<div id="the-strategy-for-inputting-missing-data-will-be-to-replace-nas-with-the-corresponding-interval-averages" class="section level4">
+<h4>The strategy for inputting missing data will be to replace NAs with the corresponding interval averages</h4>
 <pre class="r"><code># Create a new data set equal to the original data set with missing data filled in (use interval averages to replace nas)
 new_activity_data = activity_data
 new_activity_data$steps[!complete.cases(new_activity_data$steps)] = average_steps_per_interval[!complete.cases(new_activity_data$steps) %% 288]</code></pre>
@@ -128,6 +130,7 @@ mean(new_total_steps_per_day)</code></pre>
 <h5>These values differ from the estimates from the first part of the assignment. Inputting missing data increased the the estimates of the total daily number of steps on average.</h5>
 </div>
 </div>
+</div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
 <pre class="r"><code># Create a new factor variable in the dataset with two levels - &quot;weekday&quot;&quot; and &quot;weekend&quot;&quot; indicating whether a day is a weekday or weekend day
@@ -138,15 +141,8 @@ new_activity_data = cbind(new_activity_data, new_factor)</code></pre>
 <pre class="r"><code># Make a panel plot for average steps taken for weekdays or weekends
 weekdays_data = new_activity_data[which(new_activity_data$new_factor == &quot;weekday&quot;),]
 average_steps_per_weekday = tapply(weekdays_data$steps, list(weekdays_data$interval), mean, na.rm = &quot;TRUE&quot;)
-head(weekdays_data)</code></pre>
-<pre><code>##       steps       date interval new_factor
-## 1 1.7169811 2012-10-01        0    weekday
-## 2 0.3396226 2012-10-01        5    weekday
-## 3 0.1320755 2012-10-01       10    weekday
-## 4 0.1509434 2012-10-01       15    weekday
-## 5 0.0754717 2012-10-01       20    weekday
-## 6 2.0943396 2012-10-01       25    weekday</code></pre>
-<pre class="r"><code>weekends_data = new_activity_data[which(new_activity_data$new_factor == &quot;weekend&quot;),]
+
+weekends_data = new_activity_data[which(new_activity_data$new_factor == &quot;weekend&quot;),]
 average_steps_per_weekend = tapply(weekends_data$steps, list(weekends_data$interval), mean, na.rm = &quot;TRUE&quot;)
 
 par(mfrow=c(2,1))
